@@ -1,0 +1,132 @@
+{
+  "schema": "boot-order-atlas.local-demo/v1",
+  "created_on": "2026-11-09",
+  "artifact_filename": "boot-order-atlas-demo-20261109.mp4",
+  "sha256": "038c9f53408f4dd1766c82b199012b3b76bf393dd335dd4b03705b24fc524b1c",
+  "bytes": 6129190,
+  "duration_seconds": 151.6,
+  "video": {
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "fps": 5
+  },
+  "audio": {
+    "codec": "aac",
+    "channels": 1,
+    "sample_rate": 48000,
+    "source": "Generic en-US-AriaNeural speech via edge-tts 7.3.1 and the Microsoft Edge online service",
+    "voice_impersonation": false
+  },
+  "english_captions": {
+    "burned_in": true,
+    "sidecar_srt_available": true,
+    "blocks": 28,
+    "offset_basis": "Decoded 48000 Hz PCM sample counts plus padding aligned to the video frame grid"
+  },
+  "presentation": "Edited CLI walkthrough: original text cards containing actual captured command output and selected generated JSON fields. It is not an uninterrupted terminal screen recording.",
+  "source_commit": "18068f45dc1205bc900b86f2220d68bf243254f9",
+  "actual_commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "boot_order_atlas",
+        "analyze",
+        "examples/serial-before.build",
+        "--contract",
+        "examples/serial-contract.json",
+        "--json",
+        "output/video-before.json",
+        "--html",
+        "output/video-before.html"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "boot_order_atlas",
+        "compare",
+        "examples/serial-before.build",
+        "examples/serial-after.build",
+        "--contract",
+        "examples/serial-contract.json",
+        "--json",
+        "output/video-comparison.json",
+        "--html",
+        "output/video-comparison.html"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "boot_order_atlas",
+        "analyze",
+        "examples/cycle.build",
+        "--contract",
+        "examples/cycle-contract.json",
+        "--json",
+        "output/video-cycle.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "boot_order_atlas",
+        "analyze",
+        "examples/boundaries.build",
+        "--contract",
+        "examples/empty-contract.json",
+        "--json",
+        "output/video-boundaries.json"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "python3",
+        "scripts/check.py"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "validation": {
+    "ffprobe_passed": true,
+    "full_video_and_audio_decode_exit_code": 0,
+    "decoded_scene_frames_inspected": 8,
+    "selected_frame_numbers": [
+      42,
+      132,
+      223,
+      313,
+      403,
+      499,
+      608,
+      710
+    ],
+    "under_three_minutes": true,
+    "under_100_mb": true
+  },
+  "scope": {
+    "host": "Linux",
+    "qnx_or_qemu_executed": false,
+    "sdk_used": false,
+    "public_video_url": null,
+    "official_submission_claimed": false
+  },
+  "test_capture_note": "A separate full-suite repeat capture reached its 60-second harness limit and is not counted as a passing run. This video makes no fresh full-suite pass claim; the earlier committed 32-test verification remains a historical record."
+}
