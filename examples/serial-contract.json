@@ -1,0 +1,9 @@
+{
+  "schema": "boot-order-atlas.contract/v1",
+  "initial_resources": [],
+  "services": [
+    {"id": "console", "argv_prefix": ["workshop-console", "--port", "1"], "provides": ["/dev/workshop-console"], "requires": [], "foreground": "blocks"},
+    {"id": "log", "argv_prefix": ["workshop-log"], "provides": ["/dev/workshop-log"], "requires": [], "foreground": "blocks"},
+    {"id": "panel", "argv_prefix": ["workshop-panel", "--mode", "local"], "provides": [], "requires": ["/dev/workshop-console", "/dev/workshop-log"], "foreground": "blocks"}
+  ]
+}

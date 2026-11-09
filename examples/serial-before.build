@@ -1,0 +1,9 @@
+# Original review fixture. Not a complete bootable BSP or an SDK build result.
+[+script] .script = {
+    display_msg "Starting the workshop terminal"
+    workshop-console --port 1 &
+    workshop-log &
+    workshop-panel --mode local &
+    reopen /dev/workshop-console 3.0
+}
+# Fictional executables intentionally require explicit contract declarations.

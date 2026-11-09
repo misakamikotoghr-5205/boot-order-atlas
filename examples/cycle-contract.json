@@ -1,0 +1,8 @@
+{
+  "schema": "boot-order-atlas.contract/v1",
+  "initial_resources": [],
+  "services": [
+    {"id": "a", "argv_prefix": ["workshop-a"], "provides": ["/dev/workshop-a"], "requires": ["/dev/workshop-b"], "foreground": "blocks"},
+    {"id": "b", "argv_prefix": ["workshop-b"], "provides": ["/dev/workshop-b"], "requires": ["/dev/workshop-a"], "foreground": "blocks"}
+  ]
+}

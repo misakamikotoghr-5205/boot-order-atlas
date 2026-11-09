@@ -1,0 +1,10 @@
+# Original review fixture. Waits are finite stat checks, not health guarantees.
+[+script] .script = {
+    display_msg "Starting the workshop terminal"
+    workshop-console --port 1 &
+    waitfor /dev/workshop-console 3.0
+    workshop-log &
+    waitfor /dev/workshop-log 2.0
+    workshop-panel --mode local &
+    reopen /dev/workshop-console 3.0
+}

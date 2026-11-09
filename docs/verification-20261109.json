@@ -1,0 +1,35 @@
+{
+  "schema": "boot-order-atlas.local-verification/v1",
+  "date": "2026-11-09",
+  "python_version": "3.12.3",
+  "host_os": "Linux",
+  "checks": {
+    "unittest_count": 32,
+    "unittest_passed": true,
+    "compileall_passed": true,
+    "cli_comparison_and_html_check_passed": true
+  },
+  "target_executed": false,
+  "sdk_used": false,
+  "network_required": false,
+  "source_sha256": {
+    "boot_order_atlas/__init__.py": "df2fee0d40df4b30c69e65f106fd2c4e27c847032bce3b85d3d5ee5b6fd8c275",
+    "boot_order_atlas/__main__.py": "2497021bc278920e9020c723ee2314b54e14c1c33358b7169d429530d931479f",
+    "boot_order_atlas/analysis.py": "0c09175ddfe87f3f1db4015693bddf912ce987b60ef0cea7c2d215e317d3a16e",
+    "boot_order_atlas/contract.py": "4f1ac2e95353c9a91d5575b6d81abc404bb260f41a25a697eef4eeee7848c0e9",
+    "boot_order_atlas/parser.py": "41da08a1bade41b7bea09ca37b7ce96f49d0e59f3d2d8ac7d1421a2b95f3ffcd",
+    "boot_order_atlas/report.py": "dfa9fede3d9f0732a1d1c461ab259a466e996a9d8a150043de15a924d1efcb7a",
+    "examples/boundaries.build": "31ea46a26141c32eb8e7f0fd290e5ebeac744c2a30c2eaf0c20d8d86f1264a1f",
+    "examples/cycle-contract.json": "79f69de137193620ae7752b4865241aeaba6c18bb99b1ba138c34dbd42e1da7a",
+    "examples/cycle.build": "9a86f45aec26c3e99161d3043b54bd6023e403a21ac047e4daab574bc339da71",
+    "examples/empty-contract.json": "abcb1db5778eb062e7d92bc25b17a14751c2b7b25bfd0fc94b4931a33253d4b1",
+    "examples/serial-after.build": "11f5216578b7b8f18b0f317a3518b91a4cb1c37f665ef37808baf08de9690141",
+    "examples/serial-before.build": "b62c418291bbdd38a03c7ddc70983398d68f32515a80a9e1eb8c40e7ecaa2a9e",
+    "examples/serial-contract.json": "d4644ad6c61fb66ee8c915ef4bc89fb6e332c91d1e1d8cefb19f671c54c4c645",
+    "tests/test_atlas.py": "d1ec5979ff867bf4ccf4ec6b9aab3890d84f07c72a37d06f284660eb840affda"
+  },
+  "reproduce": [
+    "sh scripts/verify.sh",
+    "python3 -m boot_order_atlas compare examples/serial-before.build examples/serial-after.build --contract examples/serial-contract.json --json docs/example-report.json --html docs/example-report.html"
+  ]
+}

@@ -1,0 +1,149 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<title>Boot Order Atlas · QNX 8 startup review</title><style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#101721;color:#e5edf5;font:16px/1.6 system-ui,sans-serif}
+main{max-width:1160px;margin:auto;padding:40px 24px}header{border-bottom:1px solid #34475b;padding-bottom:24px}h1{font-size:40px;line-height:1.15;margin:0 0 12px}h2{font-size:26px}h3{margin-top:28px}p{max-width:90ch}a{color:#8cdbd0}section{margin:30px 0;padding:24px;background:#182331;border:1px solid #34475b;border-radius:12px}.badge{color:#8cdbd0;font-weight:700;letter-spacing:.08em}.hash{font:12px/1.8 monospace;overflow-wrap:anywhere;color:#a6b9ca}.stats{display:flex;flex-wrap:wrap;gap:10px}.stats>*{padding:8px 12px;background:#223345;border-radius:6px}.timeline{padding-left:30px}.timeline li{padding:10px 0;border-bottom:1px solid #34475b}.timeline small{display:block;color:#b6c7d7}code,pre{font-family:ui-monospace,monospace}pre{background:#101721;padding:14px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}code{color:#b5e0b6}table{width:100%;border-collapse:collapse;font-size:14px}td,th{text-align:left;vertical-align:top;border-bottom:1px solid #34475b;padding:10px}th{color:#adc1d4}.error{color:#ffb5b0}.warning{color:#ffd38a}.info{color:#8cdbd0}small{color:#adc1d4}.source span{display:block;scroll-margin-top:20px}.source span:target{background:#3f472d}.source b{color:#8299af}summary{cursor:pointer;margin:18px 0;font-weight:600}@media(max-width:600px){main{padding:24px 12px}section{padding:14px}h1{font-size:30px}td,th{padding:6px}}
+</style></head><body><main><header><p class="badge">HOST REVIEW / QNX SDP 8.0</p><h1>Boot Order Atlas</h1>
+<p>Review startup order, conditional path waits and declared resource dependencies. This is a static host report, not an observed QNX boot or a safety certification.</p></header><section><h2>Version review</h2><p>Diagnostic changes reflect this static model and its contract, not observed boot fixes.</p>
+<p>2 event change groups · 3 unchanged events moved · Contract changed: False</p>
+<h3>Introduced diagnostics</h3><ul><li>WAIT_MAY_TIMEOUT — Finite stat wait does not prove service health or stop later commands on failure</li><li>WAIT_MAY_TIMEOUT — Finite stat wait does not prove service health or stop later commands on failure</li></ul>
+<h3>No longer reported</h3><ul><li>RESOURCE_UNGUARDED — Provider launch precedes consumer, but no reachable subsequent stat barrier is present</li><li>RESOURCE_UNGUARDED — Provider launch precedes consumer, but no reachable subsequent stat barrier is present</li></ul>
+<h3>Source diff</h3><pre>--- serial-before.build
++++ serial-after.build
+@@ -1,9 +1,10 @@
+-# Original review fixture. Not a complete bootable BSP or an SDK build result.
++# Original review fixture. Waits are finite stat checks, not health guarantees.
+ [+script] .script = {
+     display_msg &quot;Starting the workshop terminal&quot;
+     workshop-console --port 1 &amp;
++    waitfor /dev/workshop-console 3.0
+     workshop-log &amp;
++    waitfor /dev/workshop-log 2.0
+     workshop-panel --mode local &amp;
+     reopen /dev/workshop-console 3.0
+ }
+-# Fictional executables intentionally require explicit contract declarations.</pre></section><section><h2>serial-before.build</h2>
+<p class="hash">Source SHA-256 b62c418291bbdd38a03c7ddc70983398d68f32515a80a9e1eb8c40e7ecaa2a9e<br>Contract SHA-256 ae0e0f206097400e0a44915a7cb63b306912fc87b75bd60bac4d47f6219e13c4</p>
+<div class="stats"><strong>review_required</strong><span>5 events</span>
+<span>3 matched launches</span><span>0 contract errors</span>
+<span>2 review warnings</span><span>0 coverage gaps</span></div>
+<h3>Review timeline</h3><ol class="timeline"><li><a href="#before-L3">L3</a> <strong>display_msg</strong> <code>display_msg Starting the workshop terminal</code><small>ordered_under_contract · </small></li><li><a href="#before-L4">L4</a> <strong>console</strong> <code>workshop-console --port 1 &amp;</code><small>ordered_under_contract · </small></li><li><a href="#before-L5">L5</a> <strong>log</strong> <code>workshop-log &amp;</code><small>ordered_under_contract · </small></li><li><a href="#before-L6">L6</a> <strong>panel</strong> <code>workshop-panel --mode local &amp;</code><small>ordered_under_contract · /dev/workshop-console: unproven; /dev/workshop-log: unproven</small></li><li><a href="#before-L7">L7</a> <strong>reopen</strong> <code>reopen /dev/workshop-console 3.0</code><small>ordered_under_contract · stat wait /dev/workshop-console ≤ 3.0 s; may time out</small></li></ol>
+<h3>Declared resource edges</h3><ul><li>console → panel <code>/dev/workshop-console</code></li><li>log → panel <code>/dev/workshop-log</code></li></ul>
+<h3>Diagnostics</h3><table><thead><tr><th>Level</th><th>Source</th><th>Finding</th></tr></thead><tbody><tr><td class="warning">warning</td><td><a href="#before-L6">L6</a></td><td><strong>RESOURCE_UNGUARDED</strong><br>Provider launch precedes consumer, but no reachable subsequent stat barrier is present<br><small>panel · /dev/workshop-console</small></td></tr><tr><td class="warning">warning</td><td><a href="#before-L6">L6</a></td><td><strong>RESOURCE_UNGUARDED</strong><br>Provider launch precedes consumer, but no reachable subsequent stat barrier is present<br><small>panel · /dev/workshop-log</small></td></tr><tr><td class="info">info</td><td><a href="#before-L7">L7</a></td><td><strong>WAIT_MAY_TIMEOUT</strong><br>Finite stat wait does not prove service health or stop later commands on failure<br><small>/dev/workshop-console</small></td></tr></tbody></table>
+<h3>Limits and assumptions</h3><ul><li>All service behavior and initial resources are user declarations, not verified facts.</li><li>Finite waitfor/reopen checks stat only; timeout, crashes, restarts, health and timing remain unproven.</li><li>Image layout, binaries, libraries, permissions, includes, executable availability and QNX syntax acceptance are not validated.</li><li>Unknown syntax is a coverage gap, not a claim that QNX rejects the buildfile.</li></ul>
+<details><summary>Contract declarations</summary><pre>{
+  &quot;schema&quot;: &quot;boot-order-atlas.contract/v1&quot;,
+  &quot;initial_resources&quot;: [],
+  &quot;services&quot;: [
+    {
+      &quot;id&quot;: &quot;console&quot;,
+      &quot;argv_prefix&quot;: [
+        &quot;workshop-console&quot;,
+        &quot;--port&quot;,
+        &quot;1&quot;
+      ],
+      &quot;provides&quot;: [
+        &quot;/dev/workshop-console&quot;
+      ],
+      &quot;requires&quot;: [],
+      &quot;foreground&quot;: &quot;blocks&quot;
+    },
+    {
+      &quot;id&quot;: &quot;log&quot;,
+      &quot;argv_prefix&quot;: [
+        &quot;workshop-log&quot;
+      ],
+      &quot;provides&quot;: [
+        &quot;/dev/workshop-log&quot;
+      ],
+      &quot;requires&quot;: [],
+      &quot;foreground&quot;: &quot;blocks&quot;
+    },
+    {
+      &quot;id&quot;: &quot;panel&quot;,
+      &quot;argv_prefix&quot;: [
+        &quot;workshop-panel&quot;,
+        &quot;--mode&quot;,
+        &quot;local&quot;
+      ],
+      &quot;provides&quot;: [],
+      &quot;requires&quot;: [
+        &quot;/dev/workshop-console&quot;,
+        &quot;/dev/workshop-log&quot;
+      ],
+      &quot;foreground&quot;: &quot;blocks&quot;
+    }
+  ]
+}</pre></details>
+<details open><summary>Source with line references</summary><pre class="source"><span id="before-L1"><b>   1</b> # Original review fixture. Not a complete bootable BSP or an SDK build result.</span>
+<span id="before-L2"><b>   2</b> [+script] .script = {</span>
+<span id="before-L3"><b>   3</b>     display_msg &quot;Starting the workshop terminal&quot;</span>
+<span id="before-L4"><b>   4</b>     workshop-console --port 1 &amp;</span>
+<span id="before-L5"><b>   5</b>     workshop-log &amp;</span>
+<span id="before-L6"><b>   6</b>     workshop-panel --mode local &amp;</span>
+<span id="before-L7"><b>   7</b>     reopen /dev/workshop-console 3.0</span>
+<span id="before-L8"><b>   8</b> }</span>
+<span id="before-L9"><b>   9</b> # Fictional executables intentionally require explicit contract declarations.</span></pre></details></section><section><h2>serial-after.build</h2>
+<p class="hash">Source SHA-256 11f5216578b7b8f18b0f317a3518b91a4cb1c37f665ef37808baf08de9690141<br>Contract SHA-256 ae0e0f206097400e0a44915a7cb63b306912fc87b75bd60bac4d47f6219e13c4</p>
+<div class="stats"><strong>modeled_with_caveats</strong><span>7 events</span>
+<span>3 matched launches</span><span>0 contract errors</span>
+<span>0 review warnings</span><span>0 coverage gaps</span></div>
+<h3>Review timeline</h3><ol class="timeline"><li><a href="#after-L3">L3</a> <strong>display_msg</strong> <code>display_msg Starting the workshop terminal</code><small>ordered_under_contract · </small></li><li><a href="#after-L4">L4</a> <strong>console</strong> <code>workshop-console --port 1 &amp;</code><small>ordered_under_contract · </small></li><li><a href="#after-L5">L5</a> <strong>waitfor</strong> <code>waitfor /dev/workshop-console 3.0</code><small>ordered_under_contract · stat wait /dev/workshop-console ≤ 3.0 s; may time out</small></li><li><a href="#after-L6">L6</a> <strong>log</strong> <code>workshop-log &amp;</code><small>ordered_under_contract · </small></li><li><a href="#after-L7">L7</a> <strong>waitfor</strong> <code>waitfor /dev/workshop-log 2.0</code><small>ordered_under_contract · stat wait /dev/workshop-log ≤ 2.0 s; may time out</small></li><li><a href="#after-L8">L8</a> <strong>panel</strong> <code>workshop-panel --mode local &amp;</code><small>ordered_under_contract · /dev/workshop-console: conditional_stat_barrier; /dev/workshop-log: conditional_stat_barrier</small></li><li><a href="#after-L9">L9</a> <strong>reopen</strong> <code>reopen /dev/workshop-console 3.0</code><small>ordered_under_contract · stat wait /dev/workshop-console ≤ 3.0 s; may time out</small></li></ol>
+<h3>Declared resource edges</h3><ul><li>console → panel <code>/dev/workshop-console</code></li><li>log → panel <code>/dev/workshop-log</code></li></ul>
+<h3>Diagnostics</h3><table><thead><tr><th>Level</th><th>Source</th><th>Finding</th></tr></thead><tbody><tr><td class="info">info</td><td><a href="#after-L5">L5</a></td><td><strong>WAIT_MAY_TIMEOUT</strong><br>Finite stat wait does not prove service health or stop later commands on failure<br><small>/dev/workshop-console</small></td></tr><tr><td class="info">info</td><td><a href="#after-L7">L7</a></td><td><strong>WAIT_MAY_TIMEOUT</strong><br>Finite stat wait does not prove service health or stop later commands on failure<br><small>/dev/workshop-log</small></td></tr><tr><td class="info">info</td><td><a href="#after-L9">L9</a></td><td><strong>WAIT_MAY_TIMEOUT</strong><br>Finite stat wait does not prove service health or stop later commands on failure<br><small>/dev/workshop-console</small></td></tr></tbody></table>
+<h3>Limits and assumptions</h3><ul><li>All service behavior and initial resources are user declarations, not verified facts.</li><li>Finite waitfor/reopen checks stat only; timeout, crashes, restarts, health and timing remain unproven.</li><li>Image layout, binaries, libraries, permissions, includes, executable availability and QNX syntax acceptance are not validated.</li><li>Unknown syntax is a coverage gap, not a claim that QNX rejects the buildfile.</li></ul>
+<details><summary>Contract declarations</summary><pre>{
+  &quot;schema&quot;: &quot;boot-order-atlas.contract/v1&quot;,
+  &quot;initial_resources&quot;: [],
+  &quot;services&quot;: [
+    {
+      &quot;id&quot;: &quot;console&quot;,
+      &quot;argv_prefix&quot;: [
+        &quot;workshop-console&quot;,
+        &quot;--port&quot;,
+        &quot;1&quot;
+      ],
+      &quot;provides&quot;: [
+        &quot;/dev/workshop-console&quot;
+      ],
+      &quot;requires&quot;: [],
+      &quot;foreground&quot;: &quot;blocks&quot;
+    },
+    {
+      &quot;id&quot;: &quot;log&quot;,
+      &quot;argv_prefix&quot;: [
+        &quot;workshop-log&quot;
+      ],
+      &quot;provides&quot;: [
+        &quot;/dev/workshop-log&quot;
+      ],
+      &quot;requires&quot;: [],
+      &quot;foreground&quot;: &quot;blocks&quot;
+    },
+    {
+      &quot;id&quot;: &quot;panel&quot;,
+      &quot;argv_prefix&quot;: [
+        &quot;workshop-panel&quot;,
+        &quot;--mode&quot;,
+        &quot;local&quot;
+      ],
+      &quot;provides&quot;: [],
+      &quot;requires&quot;: [
+        &quot;/dev/workshop-console&quot;,
+        &quot;/dev/workshop-log&quot;
+      ],
+      &quot;foreground&quot;: &quot;blocks&quot;
+    }
+  ]
+}</pre></details>
+<details open><summary>Source with line references</summary><pre class="source"><span id="after-L1"><b>   1</b> # Original review fixture. Waits are finite stat checks, not health guarantees.</span>
+<span id="after-L2"><b>   2</b> [+script] .script = {</span>
+<span id="after-L3"><b>   3</b>     display_msg &quot;Starting the workshop terminal&quot;</span>
+<span id="after-L4"><b>   4</b>     workshop-console --port 1 &amp;</span>
+<span id="after-L5"><b>   5</b>     waitfor /dev/workshop-console 3.0</span>
+<span id="after-L6"><b>   6</b>     workshop-log &amp;</span>
+<span id="after-L7"><b>   7</b>     waitfor /dev/workshop-log 2.0</span>
+<span id="after-L8"><b>   8</b>     workshop-panel --mode local &amp;</span>
+<span id="after-L9"><b>   9</b>     reopen /dev/workshop-console 3.0</span>
+<span id="after-L10"><b>  10</b> }</span></pre></details></section></main></body></html>

@@ -1,0 +1,12 @@
+# Unsupported input is reported as a coverage gap, not condemned as invalid QNX.
+[+script] first = {
+    [+external]
+    waitfor /dev/remote 2.0 100
+    [-external] waitfor /dev/remote 2.0
+    [-external]
+    waitfor /dev/remote 2.0 100
+    procmgr_symlink /dev/remote /dev/alias
+    /bin/sh -c "echo managed elsewhere"
+    display_msg "This line may never be reached"
+}
+[+script] second = external.startup

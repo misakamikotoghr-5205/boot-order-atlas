@@ -1,0 +1,6 @@
+# Deliberately inconsistent declarations in cycle-contract.json, not an OS claim.
+[+script] .script = {
+    workshop-a &
+    waitfor /dev/workshop-a
+    workshop-b &
+}
