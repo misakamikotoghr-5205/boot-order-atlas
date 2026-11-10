@@ -4,7 +4,7 @@
 
 **中文标题：** Boot Order Atlas：在首次启动前审阅 QNX 8 启动依赖
 
-**Tagline:** A host tool that makes startup assumptions, conditional waits and revision risks reviewable without inventing target evidence.
+**Tagline:** Review QNX 8 startup dependencies, conditional waits and revision risks with source-linked diagnostics and offline reports.
 
 ## English summary
 
@@ -39,4 +39,4 @@ Built on 2026-11-09 after reading official QNX 8 syntax and the host-tool compet
 - Public source repository: https://github.com/misakamikotoghr-5205/boot-order-atlas
 - Public YouTube demonstration: https://youtu.be/K55o50_Tus4 — published 2026-11-10; the original 151.6-second video is an edited host CLI walkthrough. Anonymous playback has not been independently verified.
 
-The registration form is filled, but Register has not been clicked and the entrant's confirmation of the rules is pending. Final entrant declarations and final submission remain outstanding. Do not substitute a script, screenshot, simulated boot or local path for the required entry fields. The README's local commands and the demo script are ready to use; publishing the video does not establish registration or a final-entry receipt.
+On November 10, official registration was confirmed by "Thanks for registering!" and My hackathon projects showing 0. Project creation is in progress; no new project creation or final submission is confirmed. The current status is `registered_entry_in_progress`; final entry preparation and submission remain outstanding. Do not substitute a script, screenshot, simulated boot or local path for the required entry fields. The README's local commands and the demo script are ready to use; publishing the video does not establish registration or a final-entry receipt.
