@@ -1,4 +1,4 @@
-# Submission copy · not submitted
+# Submission copy · submitted 2026-11-10
 
 **English title:** Boot Order Atlas — Review QNX 8 Startup Dependencies Before the First Boot
 
@@ -34,9 +34,9 @@ QNX buildfile editing/parsing/validation already exist, including `qnx-buildfile
 
 Built on 2026-11-09 after reading official QNX 8 syntax and the host-tool competition rules. AI coding assistance (Codex) was used for implementation, documentation and tests. An independent agent reviewed semantics and reproduced Unicode line-separator and stale-guard defects; both received regression fixes. This is a deterministic program with no model/runtime API or fabricated target logs. No third-party implementation code was copied. Original implementation and fixtures are MIT; referenced OSS licenses remain with their owners.
 
-## Prepared links and remaining entry work
+## Published links and confirmed submission
 
 - Public source repository: https://github.com/misakamikotoghr-5205/boot-order-atlas
 - Public YouTube demonstration: https://youtu.be/K55o50_Tus4 — published 2026-11-10; the original 151.6-second video is an edited host CLI walkthrough. Anonymous playback has not been independently verified.
 
-Official registration was confirmed on November 10. The draft has its Overview, Story, Python/HTML/JSON tags, repository and public YouTube links saved. Reopening Additional Info previously verified persistence of participation and project details, the host-build and technical explanations, Codex disclosure and eligibility fields. Both remaining participant answers have now been saved. The draft shows 4/5 steps, Additional Info is marked complete, and the flow has reached finalization. All required materials are saved; final terms remain unchecked and Submit has not been clicked, pending the entrant's confirmation of the final rules for this submission. The current status is `all_materials_saved_final_confirmation_pending`; final submission remains outstanding. Do not substitute a script, screenshot, simulated boot or local path for the required entry fields. The README's local commands and the demo script are ready to use; publishing the video does not establish registration or a final-entry receipt.
+Official registration and final submission were confirmed on November 10. After the entrant explicitly accepted the final rules and Submit was clicked, the [public Devpost project page](https://devpost.com/software/boot-order-atlas) displayed "Project submitted!" and "Submitted to QNX Global Hackathon". The source revision at submission was `fa08fc71f5dee5366156210ce6f3314893ce6472`. This confirms submission, not eligibility approval, judging results or an award. Do not substitute a script, screenshot, simulated boot or local path for the required entry fields. The README's local commands and the demo script are ready to use; publishing the video does not establish registration or a final-entry receipt.

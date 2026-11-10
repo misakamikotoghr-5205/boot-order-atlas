@@ -129,7 +129,11 @@
     "public_video_published_on": "2026-11-10",
     "public_video_visibility": "public",
     "anonymous_playback_verified": false,
-    "official_submission_claimed": false
+    "official_submission_claimed": true,
+    "devpost_public_project_url": "https://devpost.com/software/boot-order-atlas",
+    "source_commit_at_submit": "fa08fc71f5dee5366156210ce6f3314893ce6472",
+    "submitted_on": "2026-11-10",
+    "organizer_eligibility_approval_claimed": false
   },
   "test_capture_note": "A separate full-suite repeat capture reached its 60-second harness limit and is not counted as a passing run. This video makes no fresh full-suite pass claim; the earlier committed 32-test verification remains a historical record."
 }
