@@ -2,7 +2,7 @@
 
 A **151.6-second edited CLI walkthrough** was rendered locally on 2026-11-09. It uses actual Linux-host command outputs and selected fields from generated reports, displayed as original text cards. English generic synthetic narration and 28 burned-in caption blocks accompany the walkthrough. This is edited evidence, with the displayed commands retained; it is not an uninterrupted terminal screen recording.
 
-The MP4 is H.264/AAC, 1920×1080 at 5 fps, **6,129,190 bytes**. SHA-256: `038c9f53408f4dd1766c82b199012b3b76bf393dd335dd4b03705b24fc524b1c`. [Machine-readable local-media record](local-demo-20261109.json). There is no public video URL or official submission receipt recorded here.
+The MP4 is H.264/AAC, 1920×1080 at 5 fps, **6,129,190 bytes**. SHA-256: `038c9f53408f4dd1766c82b199012b3b76bf393dd335dd4b03705b24fc524b1c`. [Machine-readable local-media record](local-demo-20261109.json). It was [published publicly on YouTube](https://youtu.be/K55o50_Tus4) on 2026-11-10. Anonymous playback has not been independently verified, and no official submission receipt is recorded here.
 
 ## Recorded sequence
 
@@ -70,4 +70,4 @@ git rev-parse HEAD
 
 The media documents actual host-tool functionality. It establishes no QNX SDK build, emulator run, hardware validation, successful boot, runtime readiness or organizer acceptance. Code correctness remains bounded by the tool’s documented review model. An extra attempt to capture the complete test suite hit a 60-second harness limit and is not presented as a pass; the video instead shows the successful artifact smoke check. Earlier committed local test evidence is separate.
 
-The [official rules](https://qnx.devpost.com/rules) require a public YouTube demonstration shorter than three minutes. This local MP4 and narration are prepared media; the entrant must review the actual file, publish it through the authorized account, and add its real URL to the final entry. No upload, new account action or official submission was performed in making this file.
+The [official rules](https://qnx.devpost.com/rules) require a public YouTube demonstration shorter than three minutes. The prepared video was [published publicly](https://youtu.be/K55o50_Tus4) on 2026-11-10, and its URL can be added to the final entry. Rendering the local file on November 9 did not perform an upload, new account action or official submission. The later publication does not confirm QNX event registration or final submission; the filled registration form still awaits the entrant's confirmation of the rules and a Register click.

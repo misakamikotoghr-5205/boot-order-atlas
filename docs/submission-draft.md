@@ -34,6 +34,9 @@ QNX buildfile editing/parsing/validation already exist, including `qnx-buildfile
 
 Built on 2026-11-09 after reading official QNX 8 syntax and the host-tool competition rules. AI coding assistance (Codex) was used for implementation, documentation and tests. An independent agent reviewed semantics and reproduced Unicode line-separator and stale-guard defects; both received regression fixes. This is a deterministic program with no model/runtime API or fabricated target logs. No third-party implementation code was copied. Original implementation and fixtures are MIT; referenced OSS licenses remain with their owners.
 
-## Attach only after they exist
+## Prepared links and remaining entry work
 
-Public source repository URL, actual public YouTube URL (<3 minutes), and final entrant declarations. Do not substitute a script, screenshot, simulated boot or local path for these fields. The README's local commands and the demo script are ready to use; registration and final submission are not recorded by this draft.
+- Public source repository: https://github.com/misakamikotoghr-5205/boot-order-atlas
+- Public YouTube demonstration: https://youtu.be/K55o50_Tus4 — published 2026-11-10; the original 151.6-second video is an edited host CLI walkthrough. Anonymous playback has not been independently verified.
+
+The registration form is filled, but Register has not been clicked and the entrant's confirmation of the rules is pending. Final entrant declarations and final submission remain outstanding. Do not substitute a script, screenshot, simulated boot or local path for the required entry fields. The README's local commands and the demo script are ready to use; publishing the video does not establish registration or a final-entry receipt.

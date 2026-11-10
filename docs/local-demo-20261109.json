@@ -125,7 +125,10 @@
     "host": "Linux",
     "qnx_or_qemu_executed": false,
     "sdk_used": false,
-    "public_video_url": null,
+    "public_video_url": "https://youtu.be/K55o50_Tus4",
+    "public_video_published_on": "2026-11-10",
+    "public_video_visibility": "public",
+    "anonymous_playback_verified": false,
     "official_submission_claimed": false
   },
   "test_capture_note": "A separate full-suite repeat capture reached its 60-second harness limit and is not counted as a passing run. This video makes no fresh full-suite pass claim; the earlier committed 32-test verification remains a historical record."
